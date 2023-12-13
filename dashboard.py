@@ -26,10 +26,11 @@ FILENAME = "us_tornado_dataset_1950_2021.csv"
 ##################################################
 
 def api_csv():
-    os.remove(FILENAME)
+    if os.path.exists(FILENAME) :  
+        os.remove(FILENAME)
     username = os.environ['USERNAME']
     json_path = 'C:\\Users\\'+username+'\\.kaggle'
-    if not os.path.exists(json_path): 
+    if not os.path.exists(json_path) : 
         os.mkdir(json_path)
     shutil.copy('kaggle.json', json_path)
     os.system('kaggle datasets download -d danbraswell/us-tornado-dataset-1950-2021')
@@ -94,15 +95,12 @@ def create_map_old(data,filter) :
     map.save(outfile='map.html')
 
 
-def create_map(data):
+def create_map_tornado_path(data):
 
-    os.remove("map.html")
+    if os.path.exists("map_tornado_path.html") : 
+        os.remove("map_tornado_path.html")
 
     data_filtered = data[(data['yr'] >= 2010) & (data['yr'] <= 2015)]
-
-    geo_json_data = requests.get(
-        "https://raw.githubusercontent.com/python-visualization/folium-example-data/main/us_states.json"
-    ).json()
 
     map = folium.Map(location=[38, -97], tiles='OpenStreetMap', zoom_start=4)
 
@@ -121,19 +119,69 @@ def create_map(data):
             popup=f"Mag: {row['mag']}, Wid: {row['wid']}, Len: {row['len']}"
             ).add_to(map)
 
-    folium.GeoJson(geo_json_data).add_to(map)
-
     folium.TileLayer('https://{s}.tile.opentopomap.org/{z}/{x}/{y}.png', name='OpenTopoMap', attr='OpenTopoMap').add_to(map)
 
     folium.LayerControl().add_to(map)
 
     map.add_child(cm)
 
-    map.save('map.html')
+    map.save('map_tornado_path.html')
+
+def create_map_tornado_choropleth(data):
+
+    if os.path.exists("map_tornado_choropleth.html"):
+        os.remove("map_tornado_choropleth.html")
+
+    data_filtered = data[(data['yr'] >= 1950) & (data['yr'] <= 2021)]
+
+    geo_json_data = requests.get(
+        "https://raw.githubusercontent.com/python-visualization/folium-example-data/main/us_states.json"
+    ).json()
+
+    tornado_count_by_state = data_filtered.groupby('st').size().reset_index(name='count')
+
+    #merged_data = pd.merge(geo_json_data['features'], tornado_count_by_state, left_on='id', right_on='st')
+
+    map = folium.Map(location=[38, -97], tiles='OpenStreetMap', zoom_start=4)
+
+    folium.Choropleth(
+        geo_data=geo_json_data,
+        data=tornado_count_by_state,
+        columns=['st', 'count'],
+        key_on='feature.id',
+        fill_color='YlOrRd',
+        fill_opacity=0.7,
+        line_opacity=0.2,
+        legend_name='Nb tornades par État',
+        name='Couleurs'
+    ).add_to(map)
+
+    folium.GeoJson(
+        geo_json_data,
+        style_function=lambda feature: {
+            'fillColor': 'transparent',
+            'color': 'black',
+            'weight': 1
+        },
+        highlight_function=lambda x: {'weight': 3, 'color': '#666'},
+        smooth_factor=2.0,
+        tooltip=folium.features.GeoJsonTooltip(fields=['name'], labels=False),
+        name='States'
+    ).add_to(map)
+
+    #folium.GeoJson(geo_json_data).add_to(map)
+
+    folium.TileLayer('https://{s}.tile.opentopomap.org/{z}/{x}/{y}.png', name='OpenTopoMap', attr='OpenTopoMap').add_to(map)
+
+    folium.LayerControl().add_to(map)
+
+    #map.add_child(folium.ClickForMarker(popup="Tornado count: {count}".format(count=tornado_count_by_state['count'].max())))
+
+    map.save('map_tornado_choropleth.html')
 
 
-def display_map():
-    webbrowser.open('map.html') 
+def display_map(name):
+    webbrowser.open(name) 
 
 
 ##################################################
@@ -144,8 +192,10 @@ def main():
     api_csv()
     data = read_file(FILENAME)
     #filter = 'mag'
-    create_map(data)
-    display_map()
+    create_map_tornado_path(data)
+    create_map_tornado_choropleth(data)
+    display_map("map_tornado_path.html")
+    display_map("map_tornado_choropleth.html")
     #print(data['mag'])
 
 if __name__ == "__main__":
