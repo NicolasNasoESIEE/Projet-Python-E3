@@ -38,11 +38,6 @@ def set_layout(app) :
                 figure=create_graph(FILENAME, initial_years)
             ),
 
-           #dcc.(
-           #    id='main_chart',
-           #    figure=create_chart(FILENAME)
-           #),
-
             dcc.RangeSlider(
                 id='year-slider',
                 min=df['yr'].min(),
@@ -82,7 +77,6 @@ set_layout(app)
 
 @app.callback(
     dash.dependencies.Output('main_graph', 'figure'),
-    #dash.dependencies.Output('main_chart', 'figure'),
     [dash.dependencies.Input('year-slider', 'value')]
 )
 

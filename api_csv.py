@@ -1,5 +1,5 @@
 import os
-import shutil
+#import shutil
 import json
 
 FILENAME = "us_tornado_dataset_1950_2021.csv"
