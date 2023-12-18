@@ -1,11 +1,14 @@
 import pandas as pd
 import plotly.graph_objects as go
+import plotly.express as px
 from plotly.subplots import make_subplots
 
 FILENAME = "us_tornado_dataset_1950_2021.csv"
 
 def create_graph(FILENAME,selected_years) :
     df = pd.read_csv(FILENAME)
+    
+    df = df[df['mag'] >= 0]
 
     df['mo'] = pd.to_datetime(df['date']).dt.month
 
@@ -35,3 +38,10 @@ def create_graph(FILENAME,selected_years) :
     fig.update_yaxes(title_text="<b>Magnitude moyenne des tornades</b>", secondary_y=True)
     
     return fig
+
+#   def create_chart(FILENAME):
+#       df = pd.read_csv(FILENAME)
+#
+#       fig = px.bar(df,x='yr',y='fat',title="Décès en fonction de l'année")
+#
+#       return fig

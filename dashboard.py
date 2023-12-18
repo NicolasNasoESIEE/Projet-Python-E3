@@ -1,3 +1,4 @@
+import imports_download
 import dash
 import pandas as pd 
 from dash import dcc
@@ -9,9 +10,22 @@ from api_csv import api_csv
 from imports_download import imports_download
 
 FILENAME = "us_tornado_dataset_1950_2021.csv"
-k = 0
+api_csv_executed = False
+imports_download_executed = False
 
 app = dash.Dash(__name__)
+
+def api_csv_execute():
+    global api_csv_executed
+    if not api_csv_executed:
+        api_csv()
+        api_csv_executed = True
+
+def imports_download_execute():
+    global imports_download_executed
+    if not imports_download_executed:
+        imports_download()
+        imports_download_executed = True
 
 def set_layout(app) : 
     df = pd.read_csv(FILENAME)
@@ -31,6 +45,11 @@ def set_layout(app) :
                 figure=create_graph(FILENAME, initial_years)
             ),
 
+           #dcc.(
+           #    id='main_chart',
+           #    figure=create_chart(FILENAME)
+           #),
+
             dcc.RangeSlider(
                 id='year-slider',
                 min=df['yr'].min(),
@@ -43,17 +62,17 @@ def set_layout(app) :
             html.Iframe(
                 srcDoc=open('map_tornado_path.html', 'r').read(),
                 width='50%',
-                height='300px',
+                height='400px',
             ),
 
             html.Div(children='''
-            Carte du trajet des tornades de 2000 à 2021
+            Carte du trajet des tornades de 2010 à 2015
             '''),
 
             html.Iframe(
                 srcDoc=open('map_tornado_choropleth.html', 'r').read(),
                 width='50%',
-                height='300px',
+                height='400px',
             ),
 
             html.Div(children='''
@@ -61,10 +80,10 @@ def set_layout(app) :
             '''),
         ]
     )
+    
+imports_download_execute()
 
-imports_download()
-
-api_csv()
+api_csv_execute()
 
 create_maps()
 
@@ -72,8 +91,10 @@ set_layout(app)
 
 @app.callback(
     dash.dependencies.Output('main_graph', 'figure'),
+    #dash.dependencies.Output('main_chart', 'figure'),
     [dash.dependencies.Input('year-slider', 'value')]
 )
+
 def update_graph(selected_years):
     return create_graph(FILENAME, selected_years)
 
