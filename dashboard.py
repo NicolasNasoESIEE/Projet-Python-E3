@@ -1,4 +1,4 @@
-#import imports_download
+import imports_download
 import dash
 import pandas as pd 
 from dash import dcc
