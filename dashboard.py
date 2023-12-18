@@ -7,7 +7,6 @@ import os
 from histogram import create_graph
 from map import create_maps
 from api_csv import api_csv
-from imports_download import imports_download
 
 FILENAME = "us_tornado_dataset_1950_2021.csv"
 api_csv_executed = False
@@ -20,12 +19,6 @@ def api_csv_execute():
     if not api_csv_executed:
         api_csv()
         api_csv_executed = True
-
-def imports_download_execute():
-    global imports_download_executed
-    if not imports_download_executed:
-        imports_download()
-        imports_download_executed = True
 
 def set_layout(app) : 
     df = pd.read_csv(FILENAME)
@@ -80,8 +73,6 @@ def set_layout(app) :
             '''),
         ]
     )
-    
-imports_download_execute()
 
 api_csv_execute()
 
