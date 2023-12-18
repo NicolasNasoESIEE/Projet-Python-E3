@@ -1,4 +1,4 @@
-import imports_download
+#import imports_download
 import dash
 import pandas as pd 
 from dash import dcc
@@ -24,6 +24,7 @@ def set_layout(app) :
     df = pd.read_csv(FILENAME)
     initial_years = [1950, 1951]
     app.layout = html.Div(
+        #style={'background-image': 'url("/assets/tornado.jpg")', 'background-size': 'cover'},
         children=[
             html.H1(children='''
                 Dashboard sur les tornades aux États-Unis entre 1950 et 2021
