@@ -5,14 +5,14 @@ import pandas as pd
 import os
 import requests
 
-FILENAME = "us_tornado_dataset_1950_2021.csv"
-
-def create_map_tornado_path(data):
+def create_map_tornado_path(data, selected_year):
 
     if os.path.exists("map_tornado_path.html") : 
         os.remove("map_tornado_path.html")
 
-    data_filtered = data[(data['yr'] >= 2010) & (data['yr'] <= 2015)]
+    #data_filtered = data[(data['yr'] >= 2010) & (data['yr'] <= 2015)]
+    #selected_year = map_layout['year-dropdown']['props']['value']
+    data_filtered = data[data['yr'] == selected_year]
 
     map = folium.Map(location=[38, -97], tiles='OpenStreetMap', zoom_start=4)
 
@@ -26,7 +26,7 @@ def create_map_tornado_path(data):
             folium.PolyLine(
             [(row['slat'], row['slon']), (row['elat'], row['elon'])],
             color=color,
-            weight=1,
+            weight=3,
             opacity=1,
             popup=f"Mag: {row['mag']}, Wid: {row['wid']}, Len: {row['len']}"
             ).add_to(map)
@@ -92,7 +92,7 @@ def create_map_tornado_choropleth(data):
     map.save('map_tornado_choropleth.html')
 
 
-def create_maps():
-    df = pd.read_csv(FILENAME)
+def create_maps(filename,selected_year):
+    df = pd.read_csv(filename)
     create_map_tornado_choropleth(df)
-    create_map_tornado_path(df)
+    create_map_tornado_path(df,selected_year)

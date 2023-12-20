@@ -8,5 +8,6 @@ def imports_download():
     os.system('python -m pip install branca')
     os.system('python -m pip install plotly')
     os.system('python -m pip install pandas')
+    os.system('python -m pip install Timer')
     
 imports_download()
