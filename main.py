@@ -11,23 +11,20 @@ from histogram import create_graph, create_bar
 from map import create_maps, create_map_tornado_path
 from api_csv import api_csv
 
-FILENAME = "us_tornado_dataset_1950_2021.csv"
-api_csv_executed = False
-imports_download_executed = False
 
+# Chemin fichier CSV
+FILENAME = "us_tornado_dataset_1950_2021.csv"
+
+# Création web dash 
 app = dash.Dash(__name__)
 
-def api_csv_execute():
-    global api_csv_executed
-    if not api_csv_executed:
-        api_csv()
-        api_csv_executed = True
 
+# Mise en page du dashboard 
 def set_layout(app):
     df = pd.read_csv(FILENAME)
     initial_years = [df['yr'].min(), df['yr'].max()]
     app.layout = html.Div(
-        style={'background-image': 'url("/assets/tornado.jpg")', 'background-size': 'cover'},
+        #style={'background-image': 'url("/assets/tornado.jpg")', 'background-size': 'cover'},
         children=[
             html.H1(children='''
                 Dashboard sur les tornades aux États-Unis entre 1950 et 2021
@@ -104,26 +101,31 @@ def set_layout(app):
         ]
     )
 
-api_csv_execute()
+
+
+api_csv(FILENAME)
 
 create_maps(FILENAME,1950)
 
+# Définition de la mise en page du dashboard 
 set_layout(app)
 
+
+# Callback pour mettre à jour les graphiques
 @app.callback(
     Output('main_graph', 'figure'),
     Output('main_chart',"figure"),
     [Input('year-slider', 'value')]
 )
-
 def update_graph(selected_years):
     return create_graph(FILENAME, selected_years), create_bar(FILENAME, selected_years)
 
+
+# Callback pour mettre à jour les cartes
 @app.callback(
     Output('map_path', 'srcDoc'),
     [Input('year-dropdown', 'value')]
 )
-
 def update_map(selected_year):
     df = pd.read_csv(FILENAME)
     create_map_tornado_path(df[df['yr'] == selected_year], selected_year)
@@ -131,9 +133,11 @@ def update_map(selected_year):
         map_html_content = file.read()
     return map_html_content
 
-
+# Ouvre le navigateur et démarrer l'application web
 def open_browser():
     webbrowser.open_new('http://127.0.0.1:8050/')
+
+
 
 if __name__ == "__main__":
     Timer(1, open_browser).start()
