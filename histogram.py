@@ -3,8 +3,6 @@ import plotly.graph_objects as go
 import plotly.express as px
 from plotly.subplots import make_subplots
 
-
-
 # Fonction pour créer un graphique avec deux axes y (nombre total de tornades et magnitude moyenne) pour les années sélectionnées
 def create_graph(filename, selected_years):
     df = pd.read_csv(filename)

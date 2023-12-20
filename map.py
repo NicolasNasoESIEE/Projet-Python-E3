@@ -5,7 +5,6 @@ import pandas as pd
 import os
 import requests
 
-
 # Fonction pour créer une carte représentant les trajets des tornades pour une année donnée
 def create_map_tornado_path(data, selected_year):
 
