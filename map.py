@@ -5,13 +5,14 @@ import pandas as pd
 import os
 import requests
 
+
+# Fonction pour créer une carte représentant les trajets des tornades pour une année donnée
 def create_map_tornado_path(data, selected_year):
 
     if os.path.exists("map_tornado_path.html") : 
         os.remove("map_tornado_path.html")
 
-    #data_filtered = data[(data['yr'] >= 2010) & (data['yr'] <= 2015)]
-    #selected_year = map_layout['year-dropdown']['props']['value']
+  
     data_filtered = data[data['yr'] == selected_year]
 
     map = folium.Map(location=[38, -97], tiles='OpenStreetMap', zoom_start=4)
@@ -39,6 +40,7 @@ def create_map_tornado_path(data, selected_year):
 
     map.save('map_tornado_path.html')
 
+# Fonction pour créer une carte choroplèthe représentant le nombre de tornades par État
 def create_map_tornado_choropleth(data):
 
     if os.path.exists("map_tornado_choropleth.html"):
@@ -52,7 +54,7 @@ def create_map_tornado_choropleth(data):
 
     tornado_count_by_state = data_filtered.groupby('st').size().reset_index(name='count')
 
-    #merged_data = pd.merge(geo_json_data['features'], tornado_count_by_state, left_on='id', right_on='st')
+    
 
     map = folium.Map(location=[38, -97], tiles='OpenStreetMap', zoom_start=4)
 
@@ -81,13 +83,13 @@ def create_map_tornado_choropleth(data):
         name='States'
     ).add_to(map)
 
-    #folium.GeoJson(geo_json_data).add_to(map)
+    
 
     folium.TileLayer('https://{s}.tile.opentopomap.org/{z}/{x}/{y}.png', name='OpenTopoMap', attr='OpenTopoMap').add_to(map)
 
     folium.LayerControl().add_to(map)
 
-    #map.add_child(folium.ClickForMarker(popup="Tornado count: {count}".format(count=tornado_count_by_state['count'].max())))
+    
 
     map.save('map_tornado_choropleth.html')
 

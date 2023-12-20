@@ -3,6 +3,9 @@ import plotly.graph_objects as go
 import plotly.express as px
 from plotly.subplots import make_subplots
 
+
+
+# Fonction pour créer un graphique avec deux axes y (nombre total de tornades et magnitude moyenne) pour les années sélectionnées
 def create_graph(filename, selected_years):
     df = pd.read_csv(filename)
     
@@ -35,18 +38,20 @@ def create_graph(filename, selected_years):
     
     return fig
 
+
+# Fonction pour créer un diagramme en barres du nombre de décès pour les années sélectionnées
 def create_bar(filename, selected_years):
 
     df = pd.read_csv(filename)
     df_filtered = df[df['yr'].between(selected_years[0], selected_years[1])]
     deces_par_annees = df_filtered.groupby('yr')['fat'].sum().reset_index()
-    deces_par_annees.columns = ['Année', 'Déces']
+    deces_par_annees.columns = ['Année', 'décès']
     
-    fig = go.Figure(go.Bar(x=deces_par_annees['Année'], y=deces_par_annees['Déces']))
+    fig = go.Figure(go.Bar(x=deces_par_annees['Année'], y=deces_par_annees['décès']))
 
     fig.update_layout(
         xaxis_title='Année',
-        yaxis_title='Nombre de déces',
-        title_text=f'Nombre de déces pour les années {selected_years}'
+        yaxis_title='Nombre de décès',
+        title_text=f'Nombre de décès pour les années {selected_years}'
     )
     return fig
