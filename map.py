@@ -43,13 +43,11 @@ def create_map_tornado_choropleth(data):
     if os.path.exists("map_tornado_choropleth.html"):
         os.remove("map_tornado_choropleth.html")
 
-    data_filtered = data[(data['yr'] >= 1950) & (data['yr'] <= 2021)]
-
     geo_json_data = requests.get(
         "https://raw.githubusercontent.com/python-visualization/folium-example-data/main/us_states.json"
     ).json()
 
-    tornado_count_by_state = data_filtered.groupby('st').size().reset_index(name='count')
+    tornado_count_by_state = data.groupby('st').size().reset_index(name='count')
 
     map = folium.Map(location=[38, -97], tiles='OpenStreetMap', zoom_start=4)
 

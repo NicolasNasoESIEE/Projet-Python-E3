@@ -25,11 +25,10 @@ set_layout(app, FILENAME)
 # Callback pour update le dashboard
 set_callback(app, FILENAME)
 
-# Ouvre le navigateur et démarre l'application web
+# Ouvre le navigateur et affiche le dashboard
 def open_browser():
     webbrowser.open_new('http://127.0.0.1:8050/')
 
-# Lance le dashboard
 if __name__ == "__main__":
     Timer(1, open_browser).start()
     app.run_server(debug=True)

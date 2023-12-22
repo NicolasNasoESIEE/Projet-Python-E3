@@ -35,6 +35,10 @@ def set_layout(app, filename):
             Vous utiliserez des données publiques Open Data, accessibles et non modifiées.
             '''),
 
+            html.H2(children='''
+            Pour plus d'information, voir le README.md du projet.
+            '''),
+
             dcc.Graph(
                 id='main_graph',
                 figure=create_graph(filename, initial_years)
@@ -90,6 +94,10 @@ def set_layout(app, filename):
 
             html.H3(children='''
             Carte de la répartition des tornades en fonction des États.
+            '''),
+
+            html.H4(children='''
+            Réalisé par MTIMET Hacem et NASO Nicolas
             '''),
         ]
     )
