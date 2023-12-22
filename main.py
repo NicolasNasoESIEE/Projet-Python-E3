@@ -1,35 +1,35 @@
+#fichiers du projet
 import imports_download
-import dash
-import pandas as pd
-import os
-import webbrowser
-from threading import Timer
-
-#fichier du projet
 from api_csv import api_csv
 from layout import set_layout
 from callback import set_callback
+
+import dash
+import os
+import webbrowser
+from threading import Timer
 
 
 # Chemin fichier CSV
 FILENAME = "us_tornado_dataset_1950_2021.csv"
 
-# Création web dash 
+# Création du dashboard
 app = dash.Dash(__name__)
 
-# API pour récupérer le dataset sur kaggle 
+# Fonction pour télécharger le CSV sur Kaggle
 api_csv(FILENAME)
 
-# Définition de la mise en page du dashboard 
+# Mise en page du dashboard 
 set_layout(app, FILENAME)
 
-# Définition du callback pour update le dashboard
+# Callback pour update le dashboard
 set_callback(app, FILENAME)
 
-# Ouvre le navigateur et démarrer l'application web
+# Ouvre le navigateur et démarre l'application web
 def open_browser():
     webbrowser.open_new('http://127.0.0.1:8050/')
 
+# Lance le dashboard
 if __name__ == "__main__":
     Timer(1, open_browser).start()
     app.run_server(debug=True)

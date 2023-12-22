@@ -1,6 +1,5 @@
 import folium
 import branca
-import csv
 import pandas as pd
 import os
 import requests
@@ -11,7 +10,6 @@ def create_map_tornado_path(data, selected_year):
     if os.path.exists("map_tornado_path.html") : 
         os.remove("map_tornado_path.html")
 
-  
     data_filtered = data[data['yr'] == selected_year]
 
     map = folium.Map(location=[38, -97], tiles='OpenStreetMap', zoom_start=4)
@@ -53,8 +51,6 @@ def create_map_tornado_choropleth(data):
 
     tornado_count_by_state = data_filtered.groupby('st').size().reset_index(name='count')
 
-    
-
     map = folium.Map(location=[38, -97], tiles='OpenStreetMap', zoom_start=4)
 
     folium.Choropleth(
@@ -82,13 +78,9 @@ def create_map_tornado_choropleth(data):
         name='States'
     ).add_to(map)
 
-    
-
     folium.TileLayer('https://{s}.tile.opentopomap.org/{z}/{x}/{y}.png', name='OpenTopoMap', attr='OpenTopoMap').add_to(map)
 
     folium.LayerControl().add_to(map)
-
-    
 
     map.save('map_tornado_choropleth.html')
 

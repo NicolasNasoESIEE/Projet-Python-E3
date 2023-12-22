@@ -2,16 +2,22 @@ import pandas as pd
 from dash import dcc
 from dash import html
 
-#fichier du projet
+# import fichiers projet
 from histogram import create_graph, create_bar
 from map import create_maps, create_map_tornado_path
 
 def set_layout(app, filename):
+
     df = pd.read_csv(filename)
     initial_years = [df['yr'].min(), df['yr'].max()]
+
+    # Création des cartes (HTML)
     create_maps(filename,1950)
+
+    # Définition du layout du dashboard
     app.layout = html.Div(
         #style={'background-image': 'url("/assets/tornado.jpg")', 'background-size': 'cover'},
+        style={'textAlign': 'center'},
         children=[
             html.H1(children='''
                 Dashboard sur les tornades aux États-Unis entre 1950 et 2021
@@ -68,7 +74,7 @@ def set_layout(app, filename):
                 id='year-dropdown',
                 options=[{'label': str(year), 'value': year} for year in range(df['yr'].min(), df['yr'].max() + 1)],
                 value=df['yr'].min(),
-                style={'width': '50%'},
+                 style={'width': '50%', 'margin': 'auto'},
             ),
 
             html.H3(children='''
