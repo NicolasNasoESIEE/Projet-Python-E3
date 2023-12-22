@@ -16,8 +16,7 @@ def set_layout(app, filename):
 
     # Définition du layout du dashboard
     app.layout = html.Div(
-        #style={'background-image': 'url("/assets/tornado.jpg")', 'background-size': 'cover'},
-        style={'textAlign': 'center'},
+        style={'background-image': 'url("/assets/tornado2.jpg")', 'textAlign': 'center'},
         children=[
             html.H1(children='''
                 Dashboard sur les tornades aux États-Unis entre 1950 et 2021
