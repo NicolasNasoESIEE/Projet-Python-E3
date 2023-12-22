@@ -76,9 +76,9 @@ def set_layout(app, filename):
 
             dcc.Dropdown(
                 id='year-dropdown',
-                options=[{'label': str(year), 'value': year} for year in range(df['yr'].min(), df['yr'].max() + 1)],
+                options=[{'label': 'Année:' + str(year), 'value': year} for year in range(df['yr'].min(), df['yr'].max() + 1)],
                 value=df['yr'].min(),
-                 style={'width': '50%', 'margin': 'auto'},
+                style={'width': '50%', 'margin': 'auto'},
             ),
 
             html.H3(children='''

@@ -1,8 +1,8 @@
-**Contexte :** 
+**Consigne :** 
 L’objectif du mini projet est d’éclairer un sujet d’intérêt public (météo, environnement, politique, vie publique, finance, transports, culture, santé, sport, économie, agriculture, écologie, etc…) que vous choisissez librement. 
 Vous utiliserez des données publiques Open Data, accessibles et non modifiées.
 
-**liste des modules requis (requirements.txt) :** 
+**liste des modules à telecharger (requirements.txt) :** 
 kaggle
 dash
 folium
@@ -18,12 +18,21 @@ Timer
 - se placer dans le répertoire du projet (bien vérifier le nom du dossier : Projet-Python-E3)
 Le téléchargement des modules python est automatique au lancement du programme. 
 Il faut parfois vérifier que la bonne version de python est utilisée (Barre de recherche VSCODE => >Python: Select Interpreter).
+
+**Presentation dashboard :**
 Le dashboard comprend : texte, graphique, histogramme, cartes, slider et menu déroulant.
 Le slider permet de choisir l'intervalle des années pour afficher les données du graphique et de l'histogramme.
 Le menu déroulant permet d'afficher la trajectoire des tornades de l'année choisi.
 
-**Developper Guide:**
-expliquer les fichiers et résumé ce qu'il font
+**Developper Guide :**
+Le projet se compose de plusieurs fichiers : 
+- main.py : lacement du dashboard (import : téléchargement du csv, layout, callback)
+- layout.py : mise en page du dashboard (texte, graphiques, histogramme, cartes, slider, menu déroulant)
+- callback.py : permet de mettre à jour le dashboard en temps réel en fonction du slider et du menu déroulant
+- histogram.py : création du graphique et de l'histogramme
+- map.py : création des cartes 
+- api_csv.py : permet de télécharger le csv depuis kaggle
+- imports_download.py : installe automatiquement les modules nécessaires (voir requirements.txt)
 
 **Présentation du dataset :**
 le dataset répertorie de nombreuses données sur les tornades aux USA entre 1950 et 2021.
@@ -44,7 +53,6 @@ Données :
 *wid*  - Largeur en yards
 
 **Rapport d'analyse :**
-
 À l'aide des différents outils du dashboard (graphique, histogramme, cartes), on peut tirer plusieurs conclusions sur les données des tornades aux USA.
 *Définition (Wikipédia) :* 
 Une tornade est un tourbillon de vents extrêmement violents, prenant naissance à la base d'un nuage d'orage lorsque les conditions de cisaillement des vents sont favorables dans la basse atmosphère. 
