@@ -3,13 +3,13 @@ L’objectif du mini projet est d’éclairer un sujet d’intérêt public (mé
 Vous utiliserez des données publiques Open Data, accessibles et non modifiées.
 
 **liste des modules à telecharger (requirements.txt) :** 
-kaggle
-dash
-folium
-branca
-plotly
-pandas
-Timer
+- kaggle
+- dash
+- folium
+- branca
+- plotly
+- pandas
+- Timer
 
 **User Guide :** 
 *Installation :*
@@ -37,20 +37,20 @@ Le projet se compose de plusieurs fichiers :
 **Présentation du dataset :**
 le dataset répertorie de nombreuses données sur les tornades aux USA entre 1950 et 2021.
 Données :
-*yr*   - Année à 4 chiffres
+- *yr*   - Année à 4 chiffres
 *mn*   - Mois (1-12)
-*dy*   - Jour du mois
-*date* - Objet datetime (par exemple, 1950-01-01)
-*st*   - État où la tornade a commencé ; abréviation à 2 chiffres
-*mag*  - Echelle de Fujita (-9 si la magnitude est inconnue)
-*inj*  - Nombre de blessés
-*fat*  - Nombre de décès
-*slat* - Latitude de départ en degrés décimaux
-*slon* - Longitude de départ en degrés décimaux
-*elat* - Latitude de fin en degrés décimaux (valeur de 0 si elle est manquante)
-*elon* - Longitude de fin en degrés décimaux (valeur de 0 si elle est manquante)
-*len*  - Longueur de la trajectoire en miles
-*wid*  - Largeur en yards
+- *dy*   - Jour du mois
+- *date* - Objet datetime (par exemple, 1950-01-01)
+- *st*   - État où la tornade a commencé ; abréviation à 2 chiffres
+- *mag*  - Echelle de Fujita (-9 si la magnitude est inconnue)
+- *inj*  - Nombre de blessés
+- *fat*  - Nombre de décès
+- *slat* - Latitude de départ en degrés décimaux
+- *slon* - Longitude de départ en degrés décimaux
+- *elat* - Latitude de fin en degrés décimaux (valeur de 0 si elle est manquante)
+- *elon* - Longitude de fin en degrés décimaux (valeur de 0 si elle est manquante)
+- *len*  - Longueur de la trajectoire en miles
+- *wid*  - Largeur en yards
 
 **Rapport d'analyse :**
 À l'aide des différents outils du dashboard (graphique, histogramme, cartes), on peut tirer plusieurs conclusions sur les données des tornades aux USA.
