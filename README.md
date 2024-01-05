@@ -11,8 +11,7 @@ Vous utiliserez des données publiques Open Data, accessibles et non modifiées.
 - pandas
 - Timer
 
-**User Guide :** 
-*Installation :*
+**User Guide (installation)  :** 
 - récupérer le lien ssh du projet sur github
 - cloner le dépot sur vscode
 - se placer dans le répertoire du projet (bien vérifier le nom du dossier : Projet-Python-E3)
